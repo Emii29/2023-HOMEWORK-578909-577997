@@ -5,7 +5,7 @@ import java.util.Scanner;
  * @author Docente di POO
  * @version base
  */
-public class IOConsole {
+public class IOConsole implements IO {
 	public void mostraMessaggio(String msg) {
 		System.out.println(msg);
 	}

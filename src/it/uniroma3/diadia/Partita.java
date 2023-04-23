@@ -58,4 +58,8 @@ public class Partita {
 	public boolean persa() {
 		return this.giocatore.getCfu() == 0;
 	}
+	
+	public boolean isFinita() {
+		return (vinta() || persa());
+	}
 }
