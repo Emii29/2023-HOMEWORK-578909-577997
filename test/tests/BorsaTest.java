@@ -30,22 +30,7 @@ class BorsaTest {
 	void testAddAttrezzoPerPesoFalse() {
 		assertFalse(this.borsa.addAttrezzo(attrezzo12));
 	}
-	
-	@Test
-	void testAddAttrezzoPerNumeroTrue() {
-		for (int i=0; i<7; i++) {
-			this.borsa.addAttrezzo(attrezzoUno);
-		}
-		assertTrue(this.borsa.addAttrezzo(attrezzoUno));
-	}
-	
-	@Test
-	void testAddAttrezzoPerNumeroFalse() {
-		for (int i=0; i<12; i++) {
-			this.borsa.addAttrezzo(attrezzoUno);
-		}
-		assertFalse(this.borsa.addAttrezzo(attrezzoUno));
-	}
+
 
 	@Test
 	void testGetAttrezzoTrue() {
