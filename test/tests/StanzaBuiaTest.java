@@ -46,7 +46,7 @@ class StanzaBuiaTest {
 
 	@Test
 	void testComportamentoStanzaPienaConAttrezzoIlluminanteRimosso() {
-		this.stanzaPienaBuia.removeAttrezzo(this.stanzaPienaBuia.getAttrezzi()[0]);
+		this.stanzaPienaBuia.removeAttrezzo(this.stanzaPienaBuia.getAttrezzo("torcia"));
 		assertEquals(this.stanzaPienaBuia.getDescrizione(),this.MESSAGGIO_BUIA);
 	}
 	

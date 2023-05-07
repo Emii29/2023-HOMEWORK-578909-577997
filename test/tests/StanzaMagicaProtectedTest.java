@@ -26,33 +26,33 @@ class StanzaMagicaProtectedTest {
 
 	@Test
 	void testStanzaMagicaPienaSogliaMagicaSuperata() {
-		assertEquals(this.stanzaPiena.getAttrezzi()[2].getNome(), "adaps");
+		assertEquals(this.stanzaPiena.getAttrezzo("adaps").getNome(), "adaps");
 	}
 
 	@Test
 	void testStanzaMagicaPienaSogliaMagicaSuperataDiUnAttrezzo() {
 		this.stanzaPiena.addAttrezzo(this.attrezzi[1]);
-		assertEquals(this.stanzaPiena.getAttrezzi()[3].getNome(), "oducs");
+		assertEquals(this.stanzaPiena.getAttrezzo("oducs").getNome(), "oducs");
 	}
 	
 	@Test
 	void testStanzaMagicaPienaSogliaMagicaSuperataDiDueAttrezzi() {
 		this.stanzaPiena.addAttrezzo(this.attrezzi[1]);
 		this.stanzaPiena.addAttrezzo(this.attrezzi[0]);
-		assertEquals(this.stanzaPiena.getAttrezzi()[4].getNome(), "alap");
+		assertEquals(this.stanzaPiena.getAttrezzo("alap").getNome(), "alap");
 	}
 
 	@Test
 	void testStanzaMagicaPienaSogliaMagicaSuperataDiDuePrimoAttrezzo() {
 		this.stanzaPiena.addAttrezzo(this.attrezzi[1]);
 		this.stanzaPiena.addAttrezzo(this.attrezzi[0]);
-		assertEquals(this.stanzaPiena.getAttrezzi()[0].getNome(), "pala");
+		assertEquals(this.stanzaPiena.getAttrezzo("pala").getNome(), "pala");
 	}
 
 	@Test
 	void testStanzaMagicaPienaSogliaMagicaSuperataAttrezzoInvertitoRimosso() {
 		this.stanzaPiena.addAttrezzo(this.attrezzi[1]);
-		this.stanzaPiena.removeAttrezzo(this.stanzaPiena.getAttrezzi()[3]);
-		assertNull(this.stanzaPiena.getAttrezzi()[3]);
+		this.stanzaPiena.removeAttrezzo(this.attrezzi[1]);
+		assertNull(this.stanzaPiena.getAttrezzo("scudo"));
 	}
 }
