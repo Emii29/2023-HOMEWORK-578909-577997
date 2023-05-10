@@ -11,12 +11,12 @@ public class ComandoPrendi implements Comando {
 	public void esegui(Partita partita, IO io) {
 		Attrezzo daprendere = partita.getLabirinto().getStanzaCorrente().getAttrezzo(nomeAttrezzo);
 		//Caso in cui l'attrezzo richiesto esiste nella stanza
-		if (daprendere != null && partita.getGiocatore().getBorsa().getPeso() + daprendere.getPeso() < partita.getGiocatore().getBorsa().getPesoMax()){
+		if (daprendere != null && partita.getGiocatore().getBorsa().addAttrezzo(daprendere) == true){
 			partita.getGiocatore().getBorsa().addAttrezzo(daprendere);
 			partita.getLabirinto().getStanzaCorrente().removeAttrezzo(daprendere);
 			io.mostraMessaggio("Hai raccolto " + daprendere + ".");
 		}
-		else if (daprendere != null && partita.getGiocatore().getBorsa().getPeso() + daprendere.getPeso() > partita.getGiocatore().getBorsa().getPesoMax()){
+		else if (daprendere != null && partita.getGiocatore().getBorsa().addAttrezzo(daprendere) == false){
 			io.mostraMessaggio("La borsa non supporta tutto questo peso, lascia qualcosa a terra per prendere questo oggetto.");
 		}
 		//Caso in cui l'attrezzo richiesto non esiste nella stanza

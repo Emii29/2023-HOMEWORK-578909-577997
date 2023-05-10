@@ -15,8 +15,8 @@ public class Partita {
 	private Giocatore giocatore;
 	private Labirinto labirinto;
 
-	public Partita(){
-		this.labirinto = new Labirinto();
+	public Partita(Labirinto labirinto){
+		this.labirinto = labirinto;
 		this.giocatore = new Giocatore();
 	}
 
@@ -24,6 +24,7 @@ public class Partita {
 	 * Ritorna l'oggetto labirinto
 	 * @return
 	 */
+	
 	public Labirinto getLabirinto() {
 		return labirinto;
 	}
@@ -47,6 +48,7 @@ public class Partita {
 	 * Restituisce vero se e solo se la partita e' stata vinta
 	 * @return vero se partita vinta
 	 */
+	
 	public boolean vinta() {
 		return labirinto.getStanzaCorrente().getNome().equals(labirinto.getStanzaVincente().getNome());
 

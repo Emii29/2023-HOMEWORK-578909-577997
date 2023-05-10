@@ -88,8 +88,8 @@ public class Stanza {
 	 * Restituisce la collezione di attrezzi presenti nella stanza.
 	 * @return la collezione di attrezzi nella stanza.
 	 */
-	public Collection<Attrezzo> getAttrezzi() {
-		return this.Attrezzi.values();
+	public List<Attrezzo> getAttrezzi() {
+		return new ArrayList<>(this.Attrezzi.values());
 	}
 
 	/**
@@ -147,6 +147,10 @@ public class Stanza {
 			attrezzoCercato = this.Attrezzi.get(nomeAttrezzo);
 		return attrezzoCercato;
 	}
+	
+	public Map<String, Stanza> getMapStanzeAdiacenti() {
+		return this.Direzioni;
+	}
 
 	/**
 	 * Rimuove un attrezzo dalla stanza (ricerca in base al nome).
@@ -159,8 +163,8 @@ public class Stanza {
 		return false;
 	}
 
-	public Collection<String> getDirezioni() {
-		return this.Direzioni.keySet();
+	public List<String> getDirezioni() {
+		return new ArrayList<>(this.Direzioni.keySet());
 	}
 
 }

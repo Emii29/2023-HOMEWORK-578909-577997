@@ -10,9 +10,9 @@ import it.uniroma3.diadia.attrezzi.*;
  */
 
 public class Borsa {
-	private Map<String,Attrezzo> BorsaM;
-	private List<Attrezzo> BorsaL;
-	private SortedSet<Attrezzo> BorsaS;
+	private Map<String,Attrezzo> mappaStringAttrezzo;
+	private List<Attrezzo> listaAttrezzi;
+	private SortedSet<Attrezzo> setBorsaSorted;
 	public final static int DEFAULT_PESO_MAX_BORSA = 10;
 	private int pesoMax;
 	
@@ -21,7 +21,7 @@ public class Borsa {
 	}
 	
 	public Borsa(int pesoMax) {
-		this.BorsaM = new HashMap<>();
+		this.mappaStringAttrezzo = new HashMap<>();
 		this.pesoMax = pesoMax;
 	}
 	
@@ -34,7 +34,7 @@ public class Borsa {
 	public boolean addAttrezzo(Attrezzo attrezzo) {
 		if (this.getPeso() + attrezzo.getPeso() > this.getPesoMax())
 			return false;
-		this.BorsaM.put(attrezzo.getNome(), attrezzo);
+		this.mappaStringAttrezzo.put(attrezzo.getNome(), attrezzo);
 		return true;
 	}
 	
@@ -54,8 +54,8 @@ public class Borsa {
 	
 	public Attrezzo getAttrezzo(String nomeAttrezzo) {
 		Attrezzo a = null;		
-		if (nomeAttrezzo != null && this.BorsaM.containsKey(nomeAttrezzo))
-			a = this.BorsaM.get(nomeAttrezzo);
+		if (nomeAttrezzo != null && this.mappaStringAttrezzo.containsKey(nomeAttrezzo))
+			a = this.mappaStringAttrezzo.get(nomeAttrezzo);
 		return a;
 	}
 
@@ -66,7 +66,7 @@ public class Borsa {
 	
 	public int getPeso() {
 		int peso = 0;
-		Iterator<Attrezzo> iterator = this.BorsaM.values().iterator();
+		Iterator<Attrezzo> iterator = this.mappaStringAttrezzo.values().iterator();
 		while (iterator.hasNext()) {
 			peso = peso + iterator.next().getPeso();
 		}
@@ -79,7 +79,7 @@ public class Borsa {
 	 */
 	
 	public boolean isEmpty() {
-		return this.BorsaM.isEmpty();
+		return this.mappaStringAttrezzo.isEmpty();
 	}
 	
 	/**
@@ -94,11 +94,11 @@ public class Borsa {
 	/**
 	 * Cerca il nome dell'attrezzo ricevuto e lo rimuove dalla borsa se presente.
 	 * @param nomeAttrezzo.
-	 * @return true se l'attrezzo è stato rimosso.
+	 * @return true se l'attrezzo ï¿½ stato rimosso.
 	 */
 	
 	public boolean removeAttrezzo(Attrezzo nomeAttrezzo) {
-		if(this.BorsaM.remove(nomeAttrezzo.getNome()) != null)
+		if(this.mappaStringAttrezzo.remove(nomeAttrezzo.getNome()) != null)
 			return true;			
 		return false;
 	}
@@ -111,9 +111,12 @@ public class Borsa {
 		StringBuilder s = new StringBuilder();
 
 		if (!this.isEmpty()) { //se la borsa non e' vuota, stampa:
-			s.append("Contenuto borsa: " + this.getPeso() + " kg / " + this.getPesoMax() + " kg\n");
-			s.append(this.getContenutoOrdinatoPerNome().toString());
+//			s.append("\nContenuto borsa: " + this.getPeso() + " kg / " + this.getPesoMax() + " kg\n");
+//			s.append(this.getContenutoOrdinatoPerNome().toString());
 //			s.append(this.getContenutoOrdinatoPerPeso().toString());
+			s.append("\nContenuto borsa raggruppato per peso: \n");
+		//	s.append(this.getContenutoRaggruppatoPerPeso().toString());
+			s.append(this.getSortedSetOrdinatoPerPeso().toString());
 			return s.toString();
 		}
 		else
@@ -128,12 +131,12 @@ public class Borsa {
 	
 	public List<Attrezzo> getContenutoOrdinatoPerPeso(){
 		
-		this.BorsaL = new ArrayList<Attrezzo>(this.BorsaM.values());
+		this.listaAttrezzi = new ArrayList<Attrezzo>(this.mappaStringAttrezzo.values());
 
-		this.BorsaL.sort(Comparator.comparing(Attrezzo::getNome));
-		this.BorsaL.sort(Comparator.comparingInt(Attrezzo::getPeso));
+		this.listaAttrezzi.sort(Comparator.comparing(Attrezzo::getNome));
+		this.listaAttrezzi.sort(Comparator.comparingInt(Attrezzo::getPeso));
 		
-		return this.BorsaL;
+		return this.listaAttrezzi;
 	}
 	
 	/**
@@ -142,19 +145,40 @@ public class Borsa {
 	 */
 	
 	SortedSet<Attrezzo> getContenutoOrdinatoPerNome(){
-		return new TreeSet<Attrezzo>(this.BorsaM.values());
+		return new TreeSet<Attrezzo>(this.mappaStringAttrezzo.values());
 	}
 	
-//	public Map<Integer,Set<Attrezzo>> getContenutoRaggruppatoPerPeso(){
-//		
-//	}
+	/**
+	 * Metodo che restituisce una mappa che ha come chiave un intero, e come valore un Set con tutti gli attrezzi che hanno quel peso.
+	 * @return Map(integer),Set(Attrezzo))
+	 */
 	
-	
-	
-	
-	
-	
-	
-	
+	public Map<Integer,Set<Attrezzo>> getContenutoRaggruppatoPerPeso(){
+		Map<Integer,Set<Attrezzo>> mappaIntegerSet = new TreeMap<>();
+		Iterator<Attrezzo> iteratoreAttrezziBorsa = this.mappaStringAttrezzo.values().iterator();
+		
+		Attrezzo temp = new Attrezzo(null, 0);
+		
+			while (iteratoreAttrezziBorsa.hasNext()) {
+				temp = iteratoreAttrezziBorsa.next();
+					if (mappaIntegerSet.containsKey(temp.getPeso()))
+						mappaIntegerSet.get(temp.getPeso()).add(temp); //aggiunge nella mappa all'indice con il peso gia' esistente l'attrezzo temp
+					else {
+						Set<Attrezzo> listaAttrezzi = new HashSet<>();					
+						listaAttrezzi.add(temp);
+						mappaIntegerSet.put(temp.getPeso(), listaAttrezzi);
+					}
+			}
 
+		return mappaIntegerSet;
+	}
+	
+	SortedSet<Attrezzo> getSortedSetOrdinatoPerPeso() {		
+		SortedSet<Attrezzo> cacca = new TreeSet<Attrezzo>(new ComparatoreAttrezziPerPeso());
+		cacca.addAll(this.mappaStringAttrezzo.values());
+		return cacca;
+	}
+
+
+	
 }

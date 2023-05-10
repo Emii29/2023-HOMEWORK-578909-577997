@@ -1,5 +1,6 @@
 package tests;
 
+import it.uniroma3.diadia.ambienti.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import it.uniroma3.diadia.Partita;
@@ -13,7 +14,12 @@ class PartitaTest {
 	
 	@BeforeEach
 	void setUp()  {
-		this.partita = new Partita();
+		Labirinto labirinto = new LabirintoBuilder()
+				.addStanzaIniziale("Atrio")
+				.addStanzaVincente("Biblioteca")
+				.addAdiacenza("Atrio", "Biblioteca", "nord")
+				.getLabirinto();
+		this.partita = new Partita(labirinto);
 		this.stanza1 = new Stanza("Stanza1");
 
 	}
@@ -24,6 +30,12 @@ class PartitaTest {
 		assertTrue(this.partita.vinta());
 	}
 
+	@Test
+	void testCorrispondenzaStanzaVincente() {
+		this.partita.getLabirinto().setStanzaCorrente(this.partita.getLabirinto().getStanzaVincente());
+		assertEquals(this.partita.getLabirinto().getStanzaCorrente().getNome(),this.partita.getLabirinto().getStanzaVincente().getNome());
+	}
+	
 	@Test
 	void testCheckPartitaVintaFalse() {
 		this.partita.getLabirinto().setStanzaCorrente(stanza1);

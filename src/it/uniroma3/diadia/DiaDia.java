@@ -1,5 +1,6 @@
 package it.uniroma3.diadia;
-
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandi;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
@@ -26,14 +27,14 @@ public class DiaDia {
 			"Ci sono attrezzi che potrebbero servirti nell'impresa:\n"+
 			"puoi raccoglierli, usarli, posarli quando ti sembrano inutili\n" +
 			"o regalarli se pensi che possano ingraziarti qualcuno.\n\n"+
-			"Per conoscere le istruzioni usa il comando 'aiuto'.";
+			"Per visualizzare una lista di comandi digita: 'aiuto'.";
 
 	private Partita partita;
 	private IO io;
 
 
-	public DiaDia(IO io) {
-		this.partita = new Partita();
+	public DiaDia(Labirinto labirinto, IO io) {
+		this.partita = new Partita(labirinto);
 		this.io = io;
 	}
 
@@ -58,16 +59,32 @@ public class DiaDia {
 		comandoDaEseguire = factory.costruisciComando(istruzione);
 		comandoDaEseguire.esegui(this.partita, this.io);
 		if (this.partita.vinta())
-			System.out.println("Hai vinto!");
+			io.mostraMessaggio("Hai vinto!");
 		if (this.partita.persa())
-			System.out.println("Hai esaurito i CFU...");
+			io.mostraMessaggio("Hai esaurito i CFU...");
 		return this.partita.isFinita();
 	}
 
 
 	public static void main(String[] argc) {
 		IO io = new IOConsole();
-		DiaDia gioco = new DiaDia(io);
+		Labirinto labirinto = new LabirintoBuilder()
+				 .addStanzaIniziale("Atrio")
+				 .addAttrezzo("Osso", 5)
+				 .addStanza("Aula N11")
+				 .addStanza("Aula N10")
+				 .addAttrezzo("Torcia",1)
+				 .addStanzaBuia("Scantinato", "Torcia")
+				 .addAttrezzo("Chiave", 3)
+				 .addStanzaBloccata("Corridoio", "est", "Chiave")
+				 .addStanzaVincente("Biblioteca")
+				 .addAdiacenza("Atrio", "Corridoio", "nord")
+				 .addAdiacenza("Atrio", "Aula N10", "sud")
+				 .addAdiacenza("Atrio", "Aula N11", "est")
+				 .addAdiacenza("Corridoio", "Biblioteca", "est")
+				 .addAdiacenza("Aula N10", "Scantinato", "sud")
+				 .getLabirinto();
+		DiaDia gioco = new DiaDia(labirinto, io);
 		gioco.gioca();
 	}
 }

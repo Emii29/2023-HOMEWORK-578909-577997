@@ -4,7 +4,7 @@ import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.IO;
 
 public class ComandoAiuto implements Comando {
-	static final private String[] elencoComandi = {"Comandi disponibili:", "vai", "aiuto", "fine", "prendi", "posa", "borsa", "guarda"};
+	static final private String[] elencoComandi = {"Comandi disponibili:", "vai", "aiuto", "fine", "prendi", "posa", "guarda"};
 
 	@Override
 	public void esegui(Partita partita, IO io) {

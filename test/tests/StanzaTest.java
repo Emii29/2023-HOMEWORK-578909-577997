@@ -1,6 +1,6 @@
 package tests;
 
-
+import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import it.uniroma3.diadia.ambienti.*;
@@ -43,6 +43,21 @@ class StanzaTest {
 		assertNull(this.stanzaVuota.getStanzaAdiacente("sud"));
 	}
 
+	@Test
+	void testGetMappaStanzeAdiacenti() {
+		Map<String,Stanza> mappaStanzeAdiacentiLocale = new HashMap<>();
+		mappaStanzeAdiacentiLocale.put("nord", stanzaConUnAttrezzo);
+		assertEquals(this.stanzaPiena.getMapStanzeAdiacenti().keySet(),mappaStanzeAdiacentiLocale.keySet());
+		assertEquals(this.stanzaPiena.getMapStanzeAdiacenti().get("nord").getNome(),mappaStanzeAdiacentiLocale.get("nord").getNome());
+	}
+
+	@Test
+	void testGetDirezioni() {
+		List<String> listaDirezioni = new ArrayList<>();
+		listaDirezioni.add("nord");
+		assertEquals(listaDirezioni,this.stanzaPiena.getDirezioni());
+	}
+	
 	@Test
 	void testGetStanzaAdiacenteStanzaConUnAttrezzoSbagliata() {
 		assertNull(this.stanzaConUnAttrezzo.getStanzaAdiacente("ovest"));
