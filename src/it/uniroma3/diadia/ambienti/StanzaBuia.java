@@ -7,7 +7,9 @@ public class StanzaBuia extends Stanza {
 		super(nome);
 		this.attrezzoNecessario = nomeAttrezzo;
 	}
-	
+	/**
+	 * La descrizione cambia a seconda se l'attrezzo illuminante e' presente nella stanza.
+	 */
 	public String getDescrizione() {
 		if (hasAttrezzo(this.attrezzoNecessario)) {
 			return this.toString();
@@ -15,9 +17,4 @@ public class StanzaBuia extends Stanza {
 		else
 			return ("Qui c'e' un buio pesto.");
 	}
-
-	/**
-	 * Restituisce la collezione di attrezzi presenti nella stanza.
-	 * @return la collezione di attrezzi nella stanza.
-	 */
 }

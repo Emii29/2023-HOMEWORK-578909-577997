@@ -13,6 +13,9 @@ public class StanzaMagica extends Stanza {
 		this.contatoreAttrezziPosati = 0;
 		this.sogliaMagica = soglia;
 	}
+	/**
+	 * Se la sogla magica e' superata inverte il nome dell'attrezzo poggiato.
+	 */
 	@Override
 	public boolean addAttrezzo(Attrezzo attrezzo) {
 		this.contatoreAttrezziPosati++;

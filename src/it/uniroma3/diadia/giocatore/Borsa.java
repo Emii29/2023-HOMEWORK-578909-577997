@@ -173,10 +173,15 @@ public class Borsa {
 		return mappaIntegerSet;
 	}
 	
+	/**
+	 * Metodo che ordina il contenuto della borsa per peso attraverso un set.
+	 * @return contenuto della borsa ordinato per peso.
+	 */
+	
 	SortedSet<Attrezzo> getSortedSetOrdinatoPerPeso() {		
-		SortedSet<Attrezzo> cacca = new TreeSet<Attrezzo>(new ComparatoreAttrezziPerPeso());
-		cacca.addAll(this.mappaStringAttrezzo.values());
-		return cacca;
+		SortedSet<Attrezzo> ordinatoPerPeso = new TreeSet<Attrezzo>(new ComparatoreAttrezziPerPeso());
+		ordinatoPerPeso.addAll(this.mappaStringAttrezzo.values());
+		return ordinatoPerPeso;
 	}
 
 

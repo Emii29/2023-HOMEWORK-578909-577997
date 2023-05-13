@@ -9,7 +9,10 @@ public class StanzaBloccata extends Stanza{
 		this.direzioneBloccata = direzione;
 		this.attrezzoNecessario = nomeAttrezzo;
 	}
-
+	/**
+	 * Ritorna un riferimento alla stanza stessa se l'attrezzo sbloccante non e' presente nella stanza e se la direzione e' bloccata.
+	 * Ritorna la stanza adiacente in quella direzione se l'attrezzo sbloccante e' presente nella stanza.
+	 */
 	@Override
 	public Stanza getStanzaAdiacente(String direzione) {
 		if (direzioneBloccata.equals(direzione) && !(hasAttrezzo(attrezzoNecessario))) {
@@ -18,6 +21,10 @@ public class StanzaBloccata extends Stanza{
 		else
 			return super.getStanzaAdiacente(direzione);
 	}
+	
+	/**
+	 * La descrizione cambia a seconda se l'attrezzo sbloccante e' presente o no nella stanza.
+	 */
 	
 	@Override
 	public String getDescrizione() {
