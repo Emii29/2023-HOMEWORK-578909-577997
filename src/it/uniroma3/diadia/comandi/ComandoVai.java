@@ -12,12 +12,10 @@ public class ComandoVai implements Comando {
 		Stanza prossimaStanza = null;
 		if (direzione == null) {
 			io.mostraMessaggio("Specifica una direzione.");
-			return ;
 		}
 		prossimaStanza = stanzaCorrente.getStanzaAdiacente(this.direzione);
 		if (prossimaStanza == null) {
 			io.mostraMessaggio("Direzione inesistente");
-			return;
 		}
 		partita.getLabirinto().setStanzaCorrente(prossimaStanza);
 		io.mostraMessaggio(partita.getLabirinto().getStanzaCorrente().getNome());
