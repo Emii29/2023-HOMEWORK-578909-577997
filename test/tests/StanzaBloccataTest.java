@@ -25,29 +25,29 @@ class StanzaBloccataTest {
 		this.attrezzi[0] = new Attrezzo("chiave", 2);
 		this.attrezzi[1] = new Attrezzo("scudo", 3);
 		//setup stanze
-		this.stanzaBloccata = new StanzaBloccata("Stanza Bloccata", "est", "chiave");
+		this.stanzaBloccata = new StanzaBloccata("Stanza Bloccata", Direzione.est, "chiave");
 		this.stanzaEst = new Stanza("Stanza Est");
 		this.stanzaEst = new Stanza("Stanza Est");
 		this.stanzaBloccataType = new Stanza("Stanza Bloccata");
-		this.stanzaBloccata.impostaStanzaAdiacente("est", stanzaEst);
-		this.stanzaBloccataType.impostaStanzaAdiacente("est", stanzaEst);
+		this.stanzaBloccata.impostaStanzaAdiacente(Direzione.est, stanzaEst);
+		this.stanzaBloccataType.impostaStanzaAdiacente(Direzione.est, stanzaEst);
 	}
 	
 	@Test
 	void testStanzaBloccataGetStanzaAdiacenteBloccata() {
-		assertEquals(this.stanzaBloccata.getStanzaAdiacente("est"),this.stanzaBloccata);
+		assertEquals(this.stanzaBloccata.getStanzaAdiacente(Direzione.est),this.stanzaBloccata);
 	}
 	
 	@Test
 	void testStanzaBloccataGetStanzaAdiacenteBloccataConChiave() {
 		this.stanzaBloccata.addAttrezzo(this.attrezzi[0]);
-		assertEquals(this.stanzaBloccata.getStanzaAdiacente("est"),this.stanzaEst);
+		assertEquals(this.stanzaBloccata.getStanzaAdiacente(Direzione.est),this.stanzaEst);
 	}
 
 	@Test
 	void testStanzaBloccataGetStanzaAdiacenteBloccataSenzaChiave() {
 		this.stanzaBloccata.addAttrezzo(this.attrezzi[1]);
-		assertEquals(this.stanzaBloccata.getStanzaAdiacente("est"),this.stanzaBloccata);
+		assertEquals(this.stanzaBloccata.getStanzaAdiacente(Direzione.est),this.stanzaBloccata);
 	}
 
 	@Test

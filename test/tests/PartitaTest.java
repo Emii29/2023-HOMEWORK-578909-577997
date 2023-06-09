@@ -3,6 +3,9 @@ package tests;
 import it.uniroma3.diadia.ambienti.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.FileNotFoundException;
+
+import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,12 +16,8 @@ class PartitaTest {
 	private Stanza stanza1;
 	
 	@BeforeEach
-	void setUp()  {
-		Labirinto labirinto = new LabirintoBuilder()
-				.addStanzaIniziale("Atrio")
-				.addStanzaVincente("Biblioteca")
-				.addAdiacenza("Atrio", "Biblioteca", "nord")
-				.getLabirinto();
+	void setUp() throws FileNotFoundException, FormatoFileNonValidoException  {
+		Labirinto labirinto = Labirinto.newBuilder("labirinto.txt").getLabirinto();
 		this.partita = new Partita(labirinto);
 		this.stanza1 = new Stanza("Stanza1");
 

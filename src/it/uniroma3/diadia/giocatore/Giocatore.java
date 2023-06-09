@@ -1,4 +1,5 @@
 package it.uniroma3.diadia.giocatore;
+import it.uniroma3.diadia.*;
 /**
  * Classe giocatore che si occupa delle statistiche del giocatore
  * @author Emilio Martis/Edoardo Piovano - 578909/577997
@@ -6,7 +7,7 @@ package it.uniroma3.diadia.giocatore;
  * @see Borsa
  */
 public class Giocatore {
-	static final private int CFU_INIZIALI = 20;
+	static final private int CFU_INIZIALI = Config.getCFU();;
 	private int cfu;
 	Borsa borsa;
 

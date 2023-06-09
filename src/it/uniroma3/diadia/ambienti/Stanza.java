@@ -1,5 +1,7 @@
 package it.uniroma3.diadia.ambienti;
 import it.uniroma3.diadia.attrezzi.*;
+import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
+
 import java.util.*;
 
 
@@ -22,8 +24,9 @@ public class Stanza {
 	private String nome;
 	private Map<String,Attrezzo> Attrezzi;
 	private int numeroAttrezzi;
-	private Map<String,Stanza> Direzioni;
+	private Map<Direzione,Stanza> Direzioni;
 	private int numeroStanzeAdiacenti;
+	private AbstractPersonaggio personaggio;
 	
 
 	/**
@@ -38,6 +41,14 @@ public class Stanza {
 		this.numeroStanzeAdiacenti = 0;
 		this.numeroAttrezzi = 0;
 	}
+	
+	public void setPersonaggio(AbstractPersonaggio p) {
+		this.personaggio = p;
+	}
+	
+	public AbstractPersonaggio getPersonaggio() {
+		return this.personaggio;
+	}
 
 	/**
 	 * Imposta una stanza adiacente.
@@ -45,7 +56,7 @@ public class Stanza {
 	 * @param direzione direzione in cui sara' posta la stanza adiacente.
 	 * @param stanza stanza adiacente nella direzione indicata dal primo parametro.
 	 */
-	public void impostaStanzaAdiacente(String direzione, Stanza stanza) {
+	public void impostaStanzaAdiacente(Direzione direzione, Stanza stanza) {
 		if (this.Direzioni.containsKey(direzione)) {
 			this.Direzioni.put(direzione, stanza);		
 		}
@@ -61,7 +72,7 @@ public class Stanza {
 	 * Restituisce la stanza adiacente nella direzione specificata
 	 * @param direzione
 	 */
-	public Stanza getStanzaAdiacente(String direzione) {
+	public Stanza getStanzaAdiacente(Direzione direzione) {
 		Stanza stanza = null;
 		if (direzione != null && this.Direzioni.containsKey(direzione))
 			stanza = this.Direzioni.get(direzione);
@@ -115,7 +126,7 @@ public class Stanza {
 		StringBuilder risultato = new StringBuilder();
 		risultato.append(this.nome);
 		risultato.append("\nUscite: ");
-		for (String direzione : this.Direzioni.keySet())
+		for (Direzione direzione : this.Direzioni.keySet())
 			if (direzione!=null)
 				risultato.append(" " + direzione);
 		risultato.append("\nAttrezzi nella stanza: ");
@@ -148,7 +159,7 @@ public class Stanza {
 		return attrezzoCercato;
 	}
 	
-	public Map<String, Stanza> getMapStanzeAdiacenti() {
+	public Map<Direzione, Stanza> getMapStanzeAdiacenti() {
 		return this.Direzioni;
 	}
 
@@ -163,7 +174,7 @@ public class Stanza {
 		return false;
 	}
 
-	public List<String> getDirezioni() {
+	public List<Direzione> getDirezioni() {
 		return new ArrayList<>(this.Direzioni.keySet());
 	}
 

@@ -22,8 +22,11 @@ public interface Comando {
 	 * @param io 
 	 */
 	public void esegui(Partita partita, IO io);
+	
 	/**
 	 * set parametro del comando
 	 */
+	
 	public void setParametro(String parametro);
+	public String getParametro();
 }

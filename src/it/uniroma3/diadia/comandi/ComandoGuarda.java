@@ -3,7 +3,7 @@ package it.uniroma3.diadia.comandi;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.IO;
 
-public class ComandoGuarda implements Comando {
+public class ComandoGuarda extends AbstractComando {
 
 	@Override
 	public void esegui(Partita partita, IO io) {
@@ -12,12 +12,6 @@ public class ComandoGuarda implements Comando {
 		io.mostraMessaggio("CFU rimanenti: " + partita.getGiocatore().getCfu());
 		io.mostraMessaggio(partita.getGiocatore().getBorsa().toString());
 		io.mostraMessaggio("\n");	
-	}
-
-	@Override
-	public void setParametro(String parametro) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

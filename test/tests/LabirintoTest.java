@@ -1,6 +1,10 @@
 package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.FileNotFoundException;
+
+import it.uniroma3.diadia.FormatoFileNonValidoException;
 import it.uniroma3.diadia.ambienti.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,8 +15,8 @@ class LabirintoTest {
 	private Stanza stanza1;
 	private Stanza stanzaVincente;
 	@BeforeEach
-	void setUp() {
-		this.labirinto = new Labirinto();
+	void setUp() throws FileNotFoundException, FormatoFileNonValidoException {
+		this.labirinto = Labirinto.newBuilder("labirinto.txt").getLabirinto();
 		this.stanza1 = new Stanza("stanza1");
 		this.stanzaVincente = new Stanza("StanzaVincente");
 	}

@@ -1,8 +1,8 @@
 package it.uniroma3.diadia;
 import java.util.*;
 
+import it.uniroma3.diadia.ambienti.Direzione;
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 
 public class IOSimulator implements IO{
 
@@ -52,53 +52,25 @@ public class IOSimulator implements IO{
 		return this.listaOutput;
 	}
 	
-	public static IOSimulator IOSimulatorMonolocale(Map<Integer,String> listaIstruzioni, IOSimulator io) {
+	public static IOSimulator IOSimulatorMonolocale(Map<Integer,String> listaIstruzioni, IOSimulator io) throws Exception {
 		IOSimulator ios1 = io;
-		Labirinto labirinto = new LabirintoBuilder()
-				 .addStanzaIniziale("Atrio")
-				 .addAttrezzo("osso", 5)
-				 .addStanzaVincente("Biblioteca")
-				 .addAdiacenza("Atrio", "Biblioteca", "nord")
-				 .getLabirinto();
+		Labirinto labirinto = Labirinto.newBuilder("labirinto.txt").getLabirinto();
 		DiaDia gioco = new DiaDia(ios1, labirinto);
 		gioco.gioca();
 		return ios1;
 	}
 	
-	public static IOSimulator IOSimulatorBilocale(Map<Integer,String> listaIstruzioni, IOSimulator io) {
+	public static IOSimulator IOSimulatorBilocale(Map<Integer,String> listaIstruzioni, IOSimulator io) throws Exception {
 		IOSimulator ios2 = io;
-		Labirinto labirinto = new LabirintoBuilder()
-				 .addStanzaIniziale("Atrio")
-				 .addAttrezzo("osso", 5)
-				 .addStanza("Aula N10")
-				 .addAttrezzo("piccone", 4)
-				 .addStanzaVincente("Biblioteca")
-				 .addAdiacenza("Atrio", "Biblioteca", "nord")
-				 .addAdiacenza("Atrio", "Aula N10", "est")
-				 .getLabirinto();
+		Labirinto labirinto = Labirinto.newBuilder("labirinto2.txt").getLabirinto();
 		DiaDia gioco = new DiaDia(ios2, labirinto);
 		gioco.gioca();
 		return ios2;
 	}
 	
-	public static IOSimulator IOSimulatorCompleto(Map<Integer,String> listaIstruzioni, IOSimulator io) {
+	public static IOSimulator IOSimulatorCompleto(Map<Integer,String> listaIstruzioni, IOSimulator io) throws Exception {
 		IOSimulator ios3 = io;
-		Labirinto labirinto = new LabirintoBuilder()
-				 .addStanzaIniziale("Atrio")
-				 .addAttrezzo("Osso", 5)
-				 .addStanza("Aula N11")
-				 .addStanza("Aula N10")
-				 .addAttrezzo("Torcia",1)
-				 .addStanzaBuia("Scantinato", "Torcia")
-				 .addAttrezzo("Chiave", 3)
-				 .addStanzaBloccata("Corridoio", "est", "Chiave")
-				 .addStanzaVincente("Biblioteca")
-				 .addAdiacenza("Atrio", "Corridoio", "nord")
-				 .addAdiacenza("Atrio", "Aula N10", "sud")
-				 .addAdiacenza("Atrio", "Aula N11", "est")
-				 .addAdiacenza("Corridoio", "Biblioteca", "est")
-				 .addAdiacenza("Aula N10", "Scantinato", "sud")
-				 .getLabirinto();
+		Labirinto labirinto = Labirinto.newBuilder("labirinto3.txt").getLabirinto();
 		DiaDia gioco = new DiaDia(ios3, labirinto);
 		gioco.gioca();
 		return ios3;
